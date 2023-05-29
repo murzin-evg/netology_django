@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, get_object_or_404
 
 DATA = {
     'omlet': {
@@ -19,6 +19,7 @@ DATA = {
     # можете добавить свои рецепты ;)
 }
 
+
 # Напишите ваш обработчик. Используйте DATA как источник данных
 # Результат - render(request, 'calculator/index.html', context)
 # В качестве контекста должен быть передан словарь с рецептом:
@@ -28,3 +29,29 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
+def home_view(request):
+    template_name = 'calculator/home.html'
+
+    context = {
+        'dishes': DATA.keys(),
+    }
+
+    return render(request, template_name, context)
+
+
+def recipe_details(request, dish):
+    template_name = 'calculator/index.html'
+
+    servings = int(request.GET.get('servings', 1))
+
+    result = dict()
+
+    for item, count in DATA[dish].items():
+        result[item] = count * servings
+
+    context = {
+        'recipe': result,
+    }
+
+    return render(request, template_name, context)
