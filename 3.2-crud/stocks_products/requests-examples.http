@@ -7,8 +7,8 @@ POST {{baseUrl}}/products/
 Content-Type: application/json
 
 {
-  "title": "Помидор",
-  "description": "Лучшие помидоры на рынке"
+  "title": "Огурцы",
+  "description": "Худшие огурцы на диком западе"
 }
 
 ###
@@ -63,8 +63,64 @@ Content-Type: application/json
 
 ###
 
+# создание склада 2
+POST {{baseUrl}}/stocks/
+Content-Type: application/json
+
+{
+  "address": "Склад 2",
+  "positions": [
+    {
+      "product": 2,
+      "quantity": 500,
+      "price": 105.25
+    }
+  ]
+}
+
+###
+
+# создание склада 3
+POST {{baseUrl}}/stocks/
+Content-Type: application/json
+
+{
+  "address": "Склад 3",
+  "positions": [
+    {
+      "product": 3,
+      "quantity": 45,
+      "price": 90.35
+    },
+    {
+      "product": 2,
+      "quantity": 32,
+      "price": 125.5
+    }
+  ]
+}
+
+###
+
+# создание склада 4
+POST {{baseUrl}}/stocks/
+Content-Type: application/json
+
+{
+  "address": "Склад 4",
+  "positions": [
+    {
+      "product": 3,
+      "quantity": 10,
+      "price": 86.25
+    }
+  ]
+}
+
+###
+
 # обновляем записи на складе
-PATCH {{baseUrl}}/stocks/4/
+PATCH {{baseUrl}}/stocks/1/
 Content-Type: application/json
 
 {
@@ -75,9 +131,9 @@ Content-Type: application/json
       "price": 130.80
     },
     {
-      "product": 3,
-      "quantity": 243,
-      "price": 145
+      "product": 4,
+      "quantity": 45,
+      "price": 55.10
     }
   ]
 }
@@ -86,4 +142,23 @@ Content-Type: application/json
 
 # поиск складов, где есть определенный продукт
 GET {{baseUrl}}/stocks/?products=2
+Content-Type: application/json
+
+###
+
+# поиск складов
+
+GET {{baseUrl}}/stocks/
+Content-Type: application/json
+
+###
+
+# удаление склада
+DELETE {{baseUrl}}/stocks/2/
+Content-Type: application/json
+
+###
+
+# поиск складов, где есть определенный продукт
+GET {{baseUrl}}/stocks/?search=помид
 Content-Type: application/json
